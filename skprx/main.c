@@ -12,11 +12,11 @@
 #include "log.h"
 
 #define VITASTICK_DRIVER_NAME	"VITASTICK"
-#define VITASTICK_USB_PID	0x1337
+#define VITASTICK_USB_PID	0x00c1
 
 struct gamepad_report_t {
-	uint8_t report_id;
 	uint16_t buttons;
+	uint8_t hat;
 	int8_t left_x;
 	int8_t left_y;
 	int8_t right_x;
@@ -73,8 +73,8 @@ static int send_string_descriptor(int index)
 static int send_hid_report_init(uint8_t report_id)
 {
 	static struct gamepad_report_t gamepad __attribute__((aligned(64))) = {
-		.report_id = 1,
 		.buttons = 0,
+		.hat = 0x08,
 		.left_x = 0,
 		.left_y = 0,
 		.right_x = 0,
@@ -106,8 +106,8 @@ static void hid_report_on_complete(SceUdcdDeviceRequest *req)
 
 static void fill_gamepad_report(const SceCtrlData *pad, struct gamepad_report_t *gamepad)
 {
-	gamepad->report_id = 1;
 	gamepad->buttons = 0;
+	gamepad->hat = 0x08;
 
 	if (pad->buttons & SCE_CTRL_SQUARE)
 		gamepad->buttons |= 1 << 0;
