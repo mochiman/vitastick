@@ -322,7 +322,7 @@ static int vitastick_driver_stop(int size, void *args, void *user_data)
 
 static SceUdcdDriver vitastick_udcd_driver = {
 	VITASTICK_DRIVER_NAME,
-	2,
+	3,
 	&endpoints[0],
 	&interfaces[0],
 	&devdesc_hi,
