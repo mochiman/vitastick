@@ -127,7 +127,7 @@ struct SceUdcdInterfaceDescriptor interdesc_hi[2] = {
 		USB_CLASS_HID,		/* bInterfaceClass */
 		0x00,			/* bInterfaceSubClass */
 		0x00,			/* bInterfaceProtocol */
-		1,			/* iInterface */
+		0,			/* iInterface */
 		&endpdesc_hi[0],	/* endpoints */
 		hiddesc,
 		sizeof(hiddesc)
