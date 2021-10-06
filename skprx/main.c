@@ -21,6 +21,7 @@ struct gamepad_report_t {
 	int8_t left_y;
 	int8_t right_x;
 	int8_t right_y;
+	uint8_t vendor_spec;
 } __attribute__((packed));
 
 #define EVF_CONNECTED		(1 << 0)
@@ -78,7 +79,8 @@ static int send_hid_report_init(uint8_t report_id)
 		.left_x = 0,
 		.left_y = 0,
 		.right_x = 0,
-		.right_y = 0
+		.right_y = 0,
+		.vendor_spec = 0
 	};
 
 	static SceUdcdDeviceRequest req = {
