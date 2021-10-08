@@ -57,8 +57,8 @@ unsigned char hiddesc[] = {
 static
 struct SceUdcdEndpoint endpoints[3] = {
 	{0x00, 0, 0, 0},
-	{0x80, 1, 0, 0},
-	{0x00, 2, 0, 0}
+	{0x00, 1, 0, 0},
+	{0x80, 2, 0, 0}
 };
 
 /* Interfaces */
@@ -94,9 +94,9 @@ struct SceUdcdDeviceDescriptor devdesc_hi = {
 	0x00c1,			/* idProduct */
 	0x0f0d,			/* idVendor */
 	0x100,			/* bcdDevice */
-	0,			/* iManufacturer */
-	0,			/* iProduct */
-	0,			/* iSerialNumber */
+	1,			/* iManufacturer */
+	2,			/* iProduct */
+	3,			/* iSerialNumber */
 	1			/* bNumConfigurations */
 };
 
@@ -106,7 +106,7 @@ struct SceUdcdEndpointDescriptor endpdesc_hi[3] = {
 	{
 		USB_DT_ENDPOINT_SIZE,
 		USB_DT_ENDPOINT,
-		0x81,			/* bEndpointAddress */
+		0x02,			/* bEndpointAddress */
 		0x03,			/* bmAttributes */
 		0x40,			/* wMaxPacketSize */
 		0x05			/* bInterval */
@@ -114,7 +114,7 @@ struct SceUdcdEndpointDescriptor endpdesc_hi[3] = {
 	{
 		USB_DT_ENDPOINT_SIZE,
 		USB_DT_ENDPOINT,
-		0x02,			/* bEndpointAddress */
+		0x81,			/* bEndpointAddress */
 		0x03,			/* bmAttributes */
 		0x40,			/* wMaxPacketSize */
 		0x05			/* bInterval */
@@ -192,15 +192,23 @@ struct SceUdcdDeviceDescriptor devdesc_full = {
 	0x00c1,			/* idProduct */
 	0x0f0d,			/* idVendor */
 	0x200,			/* bcdDevice */
-	0,			/* iManufacturer */
-	0,			/* iProduct */
-	0,			/* iSerialNumber */
+	1,			/* iManufacturer */
+	2,			/* iProduct */
+	3,			/* iSerialNumber */
 	1			/* bNumConfigurations */
 };
 
 /* Full-Speed endpoint descriptors */
 static
-struct SceUdcdEndpointDescriptor endpdesc_full[2] = {
+struct SceUdcdEndpointDescriptor endpdesc_full[3] = {
+	{
+		USB_DT_ENDPOINT_SIZE,
+		USB_DT_ENDPOINT,
+		0x02,			/* bEndpointAddress */
+		0x03,			/* bmAttributes */
+		0x40,			/* wMaxPacketSize */
+		0x05			/* bInterval */
+	},
 	{
 		USB_DT_ENDPOINT_SIZE,
 		USB_DT_ENDPOINT,
@@ -222,7 +230,7 @@ struct SceUdcdInterfaceDescriptor interdesc_full[2] = {
 		USB_DT_INTERFACE,
 		0,			/* bInterfaceNumber */
 		0,			/* bAlternateSetting */
-		1,			/* bNumEndpoints */
+		2,			/* bNumEndpoints */
 		USB_CLASS_HID,		/* bInterfaceClass */
 		0x00,			/* bInterfaceSubClass */
 		0x00,			/* bInterfaceProtocol */
@@ -251,7 +259,7 @@ static
 struct SceUdcdConfigDescriptor confdesc_full = {
 	USB_DT_CONFIG_SIZE,
 	USB_DT_CONFIG,
-	(USB_DT_INTERFACE_SIZE + USB_DT_CONFIG_SIZE + USB_DT_ENDPOINT_SIZE + sizeof(hiddesc)),	/* wTotalLength */
+	(USB_DT_INTERFACE_SIZE + USB_DT_CONFIG_SIZE + USB_DT_ENDPOINT_SIZE*2 + sizeof(hiddesc)),	/* wTotalLength */
 	1,			/* bNumInterfaces */
 	1,			/* bConfigurationValue */
 	0,			/* iConfiguration */

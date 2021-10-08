@@ -167,7 +167,7 @@ static int send_hid_report(uint8_t report_id)
 	ksceKernelCpuDcacheAndL2WritebackRange(&gamepad, sizeof(gamepad));
 
 	static SceUdcdDeviceRequest req = {
-		.endpoint = &endpoints[1],
+		.endpoint = &endpoints[2],
 		.data = &gamepad,
 		.size = sizeof(gamepad),
 		.isControlRequest = 0,
@@ -223,7 +223,7 @@ static int vitastick_udcd_process_request(int recipient, int arg, SceUdcdEP0Devi
 				switch (req->bRequest) {
 				case USB_REQ_GET_DESCRIPTOR: {
 					uint8_t descriptor_type = (req->wValue >> 8) & 0xFF;
-					uint8_t descriptor_idx = req->wValue & 0xFF;
+					// uint8_t descriptor_idx = req->wValue & 0xFF;
 
 					switch (descriptor_type) {
 					case HID_DESCRIPTOR_REPORT:
@@ -286,8 +286,8 @@ static int vitastick_udcd_attach(int usb_version, void *user_data)
 {
 	LOG("vitastick_udcd_attach %d\n", usb_version);
 
-	ksceUdcdReqCancelAll(&endpoints[1]);
-	ksceUdcdClearFIFO(&endpoints[1]);
+	ksceUdcdReqCancelAll(&endpoints[2]);
+	ksceUdcdClearFIFO(&endpoints[2]);
 
 	ksceKernelSetEventFlag(usb_event_flag_id, EVF_CONNECTED);
 
